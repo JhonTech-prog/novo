@@ -8,7 +8,9 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     define: {
       // Isso garante que process.env.API_KEY funcione no navegador
-      'process.env.API_KEY': JSON.stringify(env.API_KEY)
+      'process.env.API_KEY': JSON.stringify(env.API_KEY),
+      // Isso previne o erro "process is not defined" que deixa a tela branca
+      'process.env': {}
     }
   };
 });

@@ -8,8 +8,9 @@ declare const process: {
   }
 };
 
-// Initialize the Gemini client
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Initialize the Gemini client with a fallback to avoid crashing if key is missing
+const apiKey = process.env.API_KEY || '';
+const ai = new GoogleGenAI({ apiKey });
 
 // Construct the system instruction with the menu context
 const systemInstruction = `
@@ -35,6 +36,10 @@ Seu objetivo é ajudar os clientes a escolherem suas refeições:
 `;
 
 export const sendMessageToGemini = async (history: {role: 'user' | 'model', text: string}[], newMessage: string): Promise<string> => {
+  if (!apiKey) {
+    return "Minha conexão com a IA ainda não foi configurada. Por favor, adicione a API_KEY nas configurações do projeto.";
+  }
+
   try {
     const chat = ai.chats.create({
       model: 'gemini-2.5-flash',
