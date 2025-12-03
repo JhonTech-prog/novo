@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
-import { X, MessageCircle, AlertCircle, MapPin, Search, Loader2, Store, Bike, Clock, CreditCard } from 'lucide-react';
+import { X, MessageCircle, MapPin, Search, Loader2, Store, Bike, Clock, CreditCard } from 'lucide-react';
 import { CartItem, KitDefinition } from '../types';
 import { DELIVERY_ZONES, PICKUP_INFO } from '../constants';
 
@@ -162,7 +161,6 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, items, s
 
   if (!isOpen || !selectedKit) return null;
 
-  const totalQuantity = items.reduce((acc, item) => acc + item.quantity, 0);
   const totalPrice = selectedKit.price + deliveryFee;
 
   const handleFinishOrder = () => {

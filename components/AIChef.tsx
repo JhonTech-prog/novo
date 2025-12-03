@@ -28,10 +28,15 @@ const AIChef: React.FC = () => {
     setInputValue('');
     setIsLoading(true);
 
-    const reply = await sendMessageToGemini(messages, userMessage.text);
-    
-    setMessages(prev => [...prev, { role: 'model', text: reply }]);
-    setIsLoading(false);
+    try {
+      const reply = await sendMessageToGemini(messages, userMessage.text);
+      // Ensure reply is a string before setting state
+      setMessages(prev => [...prev, { role: 'model', text: reply || "Não entendi, pode repetir?" }]);
+    } catch (error) {
+      setMessages(prev => [...prev, { role: 'model', text: "Erro ao conectar com a IA." }]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

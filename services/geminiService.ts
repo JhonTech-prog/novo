@@ -1,7 +1,13 @@
 import { GoogleGenAI } from "@google/genai";
 import { MENU_ITEMS } from '../constants';
 
-// CRITICAL: Always use process.env.API_KEY. Do not hardcode your key here.
+// Declare process for TypeScript to avoid "Cannot find name 'process'" error in client-side code
+declare const process: {
+  env: {
+    API_KEY: string;
+  }
+};
+
 // Initialize the Gemini client
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
@@ -28,7 +34,7 @@ Seu objetivo é ajudar os clientes a escolherem suas refeições:
 - Responda sempre em Português do Brasil.
 `;
 
-export const sendMessageToGemini = async (history: {role: 'user' | 'model', text: string}[], newMessage: string) => {
+export const sendMessageToGemini = async (history: {role: 'user' | 'model', text: string}[], newMessage: string): Promise<string> => {
   try {
     const chat = ai.chats.create({
       model: 'gemini-2.5-flash',
@@ -43,7 +49,8 @@ export const sendMessageToGemini = async (history: {role: 'user' | 'model', text
     });
 
     const result = await chat.sendMessage({ message: newMessage });
-    return result.text;
+    // Ensure we always return a string, even if result.text is undefined/null
+    return result.text || "Desculpe, não consegui gerar uma resposta no momento.";
   } catch (error) {
     console.error("Gemini API Error:", error);
     return "Desculpe, estou tendo problemas para consultar o cardápio agora. Tente novamente em instantes.";
