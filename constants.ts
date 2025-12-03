@@ -63,6 +63,13 @@ export const PICKUP_INFO = {
   mapsLink: "https://www.google.com/maps/search/?api=1&query=PratoFit+Rua+Maria+Minervina"
 };
 
+// CONFIGURAÇÃO DO PIX
+export const PIX_CONFIG = {
+  key: "63.247.154/0001-00", // CNPJ
+  name: "PratoFit Alimentacao", // NOME DO TITULAR
+  city: "Campina Grande" // CIDADE DO TITULAR
+};
+
 export const KITS: KitDefinition[] = [
   {
     id: 'unit',

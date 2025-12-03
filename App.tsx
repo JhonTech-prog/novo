@@ -5,12 +5,12 @@ import MenuCard from './components/MenuCard';
 import CartSheet from './components/CartSheet';
 import KitSelector from './components/KitSelector';
 import AIChef from './components/AIChef';
-import CheckoutModal from './components/CheckoutModal';
+import { CheckoutModal } from './components/CheckoutModal';
 import LimitReachedModal from './components/LimitReachedModal';
 import { ShoppingBag, Search, Info, ArrowLeft, PackageCheck } from 'lucide-react';
 
 const App: React.FC = () => {
-  // PratoFit App - Build Production Fix
+  // PratoFit App - Build Production Fix v5
   const [selectedKit, setSelectedKit] = useState<KitDefinition | null>(null);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
