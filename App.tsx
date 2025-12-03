@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { MENU_ITEMS, APP_NAME } from './constants';
 import { MenuItem, CartItem, KitDefinition } from './types';
@@ -11,7 +10,7 @@ import LimitReachedModal from './components/LimitReachedModal';
 import { ShoppingBag, Search, Info, ArrowLeft, PackageCheck } from 'lucide-react';
 
 const App: React.FC = () => {
-  // State for the new flow
+  // PratoFit App - Build Production Fix
   const [selectedKit, setSelectedKit] = useState<KitDefinition | null>(null);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
