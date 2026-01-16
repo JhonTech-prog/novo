@@ -1,0 +1,32 @@
+
+{
+  "rewrites": [
+    {
+      "source": "/whatsapp",
+      "destination": "https://whats-virid.vercel.app/#/"
+    },
+    {
+      "source": "/whatsapp/:path*",
+      "destination": "https://whats-virid.vercel.app/:path*"
+    },
+    {
+      "source": "/admin",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/((?!api/|.*\\.).*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
+      ]
+    }
+  ]
+}
