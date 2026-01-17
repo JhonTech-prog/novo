@@ -10,9 +10,24 @@ import AIChef from './components/AIChef';
 import CheckoutModal from './components/CheckoutModal';
 import LimitReachedModal from './components/LimitReachedModal';
 import AdminPanel from './components/AdminPanel';
+import MobileStockEntry from './components/MobileStockEntry';
 import { ShoppingBag, Search, ArrowLeft, PackageCheck, Lock, ShieldCheck } from 'lucide-react';
 
 const App: React.FC = () => {
+  // Detecta subdomínio de estoque mobile (estoque.pratofit.com.br)
+  const isMobileStockDomain = useMemo(() => {
+    if (typeof window === 'undefined') return false;
+    const host = window.location.hostname.toLowerCase();
+    
+    // Detecta subdomínio estoque.pratofit.com.br ou estoque-pratofit
+    const isStockDomain = host.startsWith('estoque.') || host.includes('estoque-');
+    
+    // Para testes locais: acesse http://localhost:3000/?estoque=true
+    const isStockParam = new URLSearchParams(window.location.search).get('estoque') === 'true';
+    
+    return isStockDomain || isStockParam;
+  }, []);
+
   const isSubdomainAdmin = useMemo(() => {
     if (typeof window === 'undefined') return false;
     const host = window.location.hostname.toLowerCase();
@@ -133,6 +148,11 @@ const App: React.FC = () => {
         <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">Carregando PratoFit...</p>
       </div>
     );
+  }
+
+  // Rota Mobile de Estoque
+  if (isMobileStockDomain) {
+    return <MobileStockEntry />;
   }
 
   if (isAdminMode) {

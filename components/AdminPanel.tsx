@@ -1,7 +1,8 @@
 
 import React, { useState } from 'react';
 import { MenuItem } from '../types';
-import { Save, ArrowLeft, Package, RefreshCcw, LogOut, CheckCircle2 } from 'lucide-react';
+import { Save, ArrowLeft, Package, RefreshCcw, LogOut, CheckCircle2, PackageOpen } from 'lucide-react';
+import IngredientsManager from './IngredientsManager';
 
 interface AdminPanelProps {
   items: MenuItem[];
@@ -12,6 +13,11 @@ interface AdminPanelProps {
 const AdminPanel: React.FC<AdminPanelProps> = ({ items, onSave, onExit }) => {
   const [editedItems, setEditedItems] = useState<MenuItem[]>([...items]);
   const [isSaved, setIsSaved] = useState(false);
+  const [showIngredients, setShowIngredients] = useState(false);
+
+  if (showIngredients) {
+    return <IngredientsManager onClose={() => setShowIngredients(false)} />;
+  }
 
   const handleStockChange = (id: string, newStock: string) => {
     const val = parseInt(newStock) || 0;
@@ -49,6 +55,12 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ items, onSave, onExit }) => {
           </div>
           
           <div className="flex gap-2">
+            <button 
+              onClick={() => setShowIngredients(true)}
+              className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-xl font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all active:scale-95"
+            >
+              <PackageOpen size={18} /> Gerenciar Insumos
+            </button>
             <button 
               onClick={handleReset}
               className="bg-white text-gray-600 px-4 py-2 rounded-xl font-bold border border-gray-200 shadow-sm hover:bg-gray-50 flex items-center gap-2 transition-all"
